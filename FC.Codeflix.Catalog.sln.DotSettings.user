@@ -1,6 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1e1044e4_002D7afe_002D46d3_002Da95c_002D8e707cb7af5f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Instantiate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5159c80f_002D25a9_002D4cf8_002Da68e_002Dc0eb4d23e996/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InstantiateWithIsActive(isActive: True)" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::64448802-52DD-4650-914B-39B8F8EE862C::net6.0::FC.Codeflix.Catalog.UnitTests.Entity.Category.CategoryTest.Instantiate&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::64448802-52DD-4650-914B-39B8F8EE862C::net7.0::FC.Codeflix.Catalog.UnitTests.Entity.Category.CategoryTest.InstantiateWithIsActive.InstantiateWithIsActive(isActive: True)&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
