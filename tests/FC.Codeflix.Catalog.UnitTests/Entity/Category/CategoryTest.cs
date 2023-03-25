@@ -12,7 +12,7 @@ public class CategoryTest
     {
         var validData = new
         {
-            Name = "Categoy name",
+            Name = "Category name",
             Description = "Category description"
         };
         var datetimeBefore = DateTime.Now;
@@ -37,7 +37,7 @@ public class CategoryTest
     {
         var validData = new
         {
-            Name = "Categoy name",
+            Name = "Category name",
             Description = "Category description"
         };
 
@@ -115,7 +115,7 @@ public class CategoryTest
     {
         var validData = new
         {
-            Name = "Categoy name",
+            Name = "Category name",
             Description = "Category description"
         };
         var category = new DomainEntity.Category(validData.Name, validData.Description, false);
@@ -129,11 +129,100 @@ public class CategoryTest
     {
         var validData = new
         {
-            Name = "Categoy name",
+            Name = "Category name",
             Description = "Category description"
         };
         var category = new DomainEntity.Category(validData.Name, validData.Description);
         category.Deactivate();
         Assert.False(category.IsActive);
+    }
+
+    [Fact(DisplayName = nameof(Update))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void Update()
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+
+        var updatedData = new
+        {
+            Name = "Category name updated",
+            Description = "Category description updated"
+        };
+
+        category.Update(updatedData.Name, updatedData.Description);
+
+        Assert.Equal(updatedData.Name, category.Name);
+        Assert.Equal(updatedData.Description, category.Description);
+    }
+
+    [Fact(DisplayName = nameof(UpdateOnlyName))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void UpdateOnlyName()
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+
+        var currentDescription = category.Description;
+
+        var updatedData = new
+        {
+            Name = "Category name updated"
+        };
+
+        category.Update(updatedData.Name);
+
+        Assert.Equal(updatedData.Name, category.Name);
+        Assert.Equal(currentDescription, category.Description);
+    }
+
+    [Theory(DisplayName = nameof(UpdateErrorWhenNameIsEmpty))]
+    [Trait("Domain", "Category - Aggregates")]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData("     ")]
+    public void UpdateErrorWhenNameIsEmpty(string? invalidName)
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+
+        var action = () => category.Update(invalidName!);
+        var exception = Assert.Throws<EntityValidationException>(action);
+        Assert.Equal("Name should not be empty or null", exception.Message);
+    }
+
+    [Theory(DisplayName = nameof(UpdateErrorWhenNameIsLessThan3Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    [InlineData("G")]
+    [InlineData("1")]
+    [InlineData("Gi")]
+    [InlineData("12")]
+    public void UpdateErrorWhenNameIsLessThan3Characters(string invalidName)
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+
+        var action = () => category.Update(invalidName);
+        var exception = Assert.Throws<EntityValidationException>(action);
+        Assert.Equal("Name should have at least 3 characters long", exception.Message);
+    }
+
+    [Fact(DisplayName = nameof(UpdateErrorWhenNameIsGreaterThan255Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void UpdateErrorWhenNameIsGreaterThan255Characters()
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+
+        var invalidName = string.Join(null, Enumerable.Range(1, 256).Select(_ => "a").ToArray());
+        var action = () => category.Update(invalidName, "Description");
+        var exception = Assert.Throws<EntityValidationException>(action);
+        Assert.Equal("Name should be less or equal 255 characters long", exception.Message);
+    }
+
+    [Fact(DisplayName = nameof(UpdateErrorWhenDescriptionIsGreaterThan10_000Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void UpdateErrorWhenDescriptionIsGreaterThan10_000Characters()
+    {
+        var category = new DomainEntity.Category("Category name", "Category description");
+        var invalidDescription = string.Join(null, Enumerable.Range(1, 10_001).Select(_ => "a").ToArray());
+        var action = () => category.Update("Name", invalidDescription);
+        var exception = Assert.Throws<EntityValidationException>(action);
+        Assert.Equal("Description should be less or equal 10.000 characters long", exception.Message);
     }
 }

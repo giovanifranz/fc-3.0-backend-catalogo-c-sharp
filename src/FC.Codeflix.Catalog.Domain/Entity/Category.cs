@@ -20,9 +20,9 @@ public class Category
 
     public DateTime CreatedAt { get; }
 
-    public string Name { get; }
+    public string Name { get; private set; }
 
-    public string Description { get; }
+    public string Description { get; private set; }
 
     public void Activate()
     {
@@ -33,6 +33,13 @@ public class Category
     public void Deactivate()
     {
         IsActive = false;
+        Validate();
+    }
+
+    public void Update(string name, string? description = null)
+    {
+        Name = name;
+        Description = description ?? Description;
         Validate();
     }
 
