@@ -16,13 +16,25 @@ public class Category
 
     public Guid Id { get; }
 
-    public bool IsActive { get; }
+    public bool IsActive { get; private set; }
 
     public DateTime CreatedAt { get; }
 
     public string Name { get; }
 
     public string Description { get; }
+
+    public void Activate()
+    {
+        IsActive = true;
+        Validate();
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+        Validate();
+    }
 
     private void Validate()
     {
