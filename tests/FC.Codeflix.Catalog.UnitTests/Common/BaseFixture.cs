@@ -1,6 +1,6 @@
 using Bogus;
 
-namespace FC.Codeflix.Catalog.UnitTests.Domain.Common;
+namespace FC.Codeflix.Catalog.UnitTests.Common;
 
 public abstract class BaseFixture
 {

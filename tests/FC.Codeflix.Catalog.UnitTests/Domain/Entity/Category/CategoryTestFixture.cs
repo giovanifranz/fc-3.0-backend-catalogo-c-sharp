@@ -1,4 +1,4 @@
-using FC.Codeflix.Catalog.UnitTests.Domain.Common;
+using FC.Codeflix.Catalog.UnitTests.Common;
 using Xunit;
 using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 
