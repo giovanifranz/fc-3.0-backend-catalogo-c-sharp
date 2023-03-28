@@ -82,11 +82,11 @@ public class DomainValidationTest
             .WithMessage($"{fieldName} should be at least {minLength} characters long");
     }
 
-    public static IEnumerable<object[]> GetValuesSmallerThanMin(int numberOftests = 5)
+    public static IEnumerable<object[]> GetValuesSmallerThanMin(int numberOfTests = 5)
     {
         yield return new object[] { "123456", 10 };
         var faker = new Faker();
-        for (var i = 0; i < numberOftests - 1; i++)
+        for (var i = 0; i < numberOfTests - 1; i++)
         {
             var example = faker.Commerce.ProductName();
             var minLength = example.Length + new Random().Next(1, 20);
@@ -107,11 +107,11 @@ public class DomainValidationTest
         action.Should().NotThrow();
     }
 
-    public static IEnumerable<object[]> GetValuesGreaterThanMin(int numberOftests = 5)
+    public static IEnumerable<object[]> GetValuesGreaterThanMin(int numberOfTests = 5)
     {
         yield return new object[] { "123456", 6 };
         var faker = new Faker();
-        for (var i = 0; i < numberOftests - 1; i++)
+        for (var i = 0; i < numberOfTests - 1; i++)
         {
             var example = faker.Commerce.ProductName();
             var minLength = example.Length - new Random().Next(1, 5);
@@ -119,10 +119,10 @@ public class DomainValidationTest
         }
     }
 
-    [Theory(DisplayName = nameof(maxLengthThrowWhenGreater))]
+    [Theory(DisplayName = nameof(MaxLengthThrowWhenGreater))]
     [Trait("Domain", "DomainValidation - Validation")]
     [MemberData(nameof(GetValuesGreaterThanMax), 10)]
-    public void maxLengthThrowWhenGreater(string target, int maxLength)
+    public void MaxLengthThrowWhenGreater(string target, int maxLength)
     {
         var fieldName = Faker.Commerce.ProductName().Replace(" ", "");
 
@@ -133,11 +133,11 @@ public class DomainValidationTest
             .WithMessage($"{fieldName} should be less or equal {maxLength} characters long");
     }
 
-    public static IEnumerable<object[]> GetValuesGreaterThanMax(int numberOftests = 5)
+    public static IEnumerable<object[]> GetValuesGreaterThanMax(int numberOfTests = 5)
     {
         yield return new object[] { "123456", 5 };
         var faker = new Faker();
-        for (var i = 0; i < numberOftests - 1; i++)
+        for (var i = 0; i < numberOfTests - 1; i++)
         {
             var example = faker.Commerce.ProductName();
             var maxLength = example.Length - new Random().Next(1, 5);
@@ -145,10 +145,10 @@ public class DomainValidationTest
         }
     }
 
-    [Theory(DisplayName = nameof(maxLengthOk))]
+    [Theory(DisplayName = nameof(MaxLengthOk))]
     [Trait("Domain", "DomainValidation - Validation")]
     [MemberData(nameof(GetValuesLessThanMax), 10)]
-    public void maxLengthOk(string target, int maxLength)
+    public void MaxLengthOk(string target, int maxLength)
     {
         var fieldName = Faker.Commerce.ProductName().Replace(" ", "");
 
@@ -158,11 +158,11 @@ public class DomainValidationTest
         action.Should().NotThrow();
     }
 
-    public static IEnumerable<object[]> GetValuesLessThanMax(int numberOftests = 5)
+    public static IEnumerable<object[]> GetValuesLessThanMax(int numberOfTests = 5)
     {
         yield return new object[] { "123456", 6 };
         var faker = new Faker();
-        for (var i = 0; i < numberOftests - 1; i++)
+        for (var i = 0; i < numberOfTests - 1; i++)
         {
             var example = faker.Commerce.ProductName();
             var maxLength = example.Length + new Random().Next(0, 5);
