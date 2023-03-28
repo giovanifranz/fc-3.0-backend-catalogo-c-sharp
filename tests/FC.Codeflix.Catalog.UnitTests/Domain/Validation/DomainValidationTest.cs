@@ -16,8 +16,10 @@ public class DomainValidationTest
     {
         var fieldName = Faker.Commerce.ProductName().Replace(" ", "");
         var value = Faker.Commerce.ProductName();
+
         var action =
             () => DomainValidation.NotNull(value, fieldName);
+
         action.Should().NotThrow();
     }
 
